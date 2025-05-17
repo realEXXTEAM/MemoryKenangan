@@ -173,3 +173,114 @@
 </html>
 
 </p> Kamu sudah mencapai dasar
+
+<!Menu RefresPage>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Small Floating Refresh Button + Popup</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: #f5f6fa;
+    }
+
+    .refresh-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 50px; /* KECILIN */
+      height: 50px; /* KECILIN */
+      border-radius: 50%;
+      background: #1976d2;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      z-index: 10;
+    }
+
+    .refresh-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.25);
+    }
+
+    .refresh-icon {
+      width: 24px; /* SESUAI KECILIN ICON JUGA */
+      height: 24px;
+      fill: white;
+    }
+
+    .popup {
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      background: white;
+      padding: 8px 14px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      display: flex;
+      align-items: center;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      pointer-events: none;
+      font-size: 14px;
+    }
+
+    .popup.show {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .spinner {
+      border: 3px solid #ccc;
+      border-top: 3px solid #1976d2;
+      border-radius: 50%;
+      width: 16px;
+      height: 16px;
+      margin-right: 8px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Refresh Button -->
+  <div class="refresh-btn" id="refreshButton">
+    <svg class="refresh-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6h-2c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/>
+    </svg>
+  </div>
+
+  <!-- Popup Box -->
+  <div class="popup" id="popupMessage">
+    <div class="spinner"></div>
+    <span>Refreshing page...</span>
+  </div>
+
+  <script>
+    const refreshBtn = document.getElementById('refreshButton');
+    const popup = document.getElementById('popupMessage');
+
+    refreshBtn.addEventListener('click', () => {
+      popup.classList.add('show');
+
+      setTimeout(() => {
+        location.reload();
+      }, 1000);
+    });
+  </script>
+
+</body>
+</html>
+
