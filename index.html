@@ -1,286 +1,298 @@
-</p>𝗠𝗘𝗠𝗢𝗥𝗬
-
-<!TAMPILANUTAMA>
+<!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MEMORY BEST FRIEND KITA 🥰</title>
-    <style>
-        body {
-            font-family: sans-serif;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-            align-items: flex-start;
-            min-height: 100vh;
-            margin: 20px;
-            background-color: #f0f0f0;
-        }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>MEMORY BEST FRIEND KITA 🥰 + Refresh Button + Popup Memory</title>
+<style>
+  /* ===== STYLE MENU TAMPILAN ===== */
+  body {
+    font-family: sans-serif;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: flex-start;
+    min-height: 100vh;
+    margin: 20px;
+    background-color: #f0f0f0;
+  }
 
-        .post-container {
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            padding: 15px;
-            width: 300px;
-            margin-bottom: 20px;
-        }
+  .post-container {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    width: 300px;
+    margin-bottom: 20px;
+  }
 
-        .author-info {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
+  .author-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
 
-        .avatar {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            margin-right: 10px;
-            background-image: url('https://tr.rbxcdn.com/30DAY-AvatarHeadshot-0048E68397891AA42178DEC27A26D433-Png/150/150/AvatarHeadshot/Webp/noFilter');
-            background-size: cover;
-            background-position: center;
-        }
+  .avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+    background-image: url('https://tr.rbxcdn.com/30DAY-AvatarHeadshot-0048E68397891AA42178DEC27A26D433-Png/150/150/AvatarHeadshot/Webp/noFilter');
+    background-size: cover;
+    background-position: center;
+  }
 
-        .username {
-            font-weight: bold;
-            font-size: 0.9em;
-        }
+  .username {
+    font-weight: bold;
+    font-size: 0.9em;
+  }
 
-        .timestamp {
-            color: #777;
-            font-size: 0.8em;
-            margin-left: 5px;
-        }
+  .timestamp {
+    color: #777;
+    font-size: 0.8em;
+    margin-left: 5px;
+  }
 
-        .text-content {
-            margin-bottom: 10px;
-            font-size: 0.9em;
-        }
+  .text-content {
+    margin-bottom: 10px;
+    font-size: 0.9em;
+  }
 
-        img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 6px;
-            display: block;
-            margin-bottom: 10px;
-        }
-    </style>
-</head>
-<body>
-    <div class="post-container">
-        <div class="author-info">
-            <div class="avatar"></div>
-            <div class="username">@CrafterMC7</div>
-            <div class="timestamp">· Sab,17 Mei 2025 (New)</div>
-        </div>
-        <div class="text-content">Pose ke 2 Lucukk</div>
-        <img src="https://i.imgur.com/GwLfTMK.jpg" alt="PNG">
-    </div>
-    
-    <div class="post-container">
-        <div class="author-info">
-            <div class="avatar"></div>
-            <div class="username">@CrafterMC7</div>
-            <div class="timestamp">· Sab,17 Mei 2025 (New)</div>
-        </div>
-        <div class="text-content">Pose ke 1 Lucukkk</div>
-        <img src="https://i.imgur.com/iYCkNlD.jpg" alt="PNG">
-    </div>
+  img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 6px;
+    display: block;
+    margin-bottom: 10px;
+  }
 
-    <div class="post-container">
-        <div class="author-info">
-            <div class="avatar"></div>
-            <div class="username">@CrafterMC7</div>
-            <div class="timestamp">· Sab,17 Mei 2025</div>
-        </div>
-        <div class="text-content">Foto Profil Grup Lama</div>
-        <img src="https://i.imgur.com/dGVKJq6.jpg" alt="PNG">
-    </div>
+  /* ===== STYLE REFRESH BUTTON ===== */
+  .refresh-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 40px;  
+    height: 40px; 
+    border-radius: 50%;
+    background: #1976d2;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    z-index: 10;
+  }
 
-    <div class="post-container">
-        <div class="author-info">
-            <div class="avatar"></div>
-            <div class="username">@CrafterMC7</div>
-            <div class="timestamp">· Sab,17 Mei 2025</div>
-        </div>
-        <div class="text-content">Profil Akun Roblox kita </div>
-        <img src="  https://i.imgur.com/fId0quL.jpg" alt="PNG">
-    </div>
+  .refresh-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.25);
+  }
 
-    <div class="post-container">
-        <div class="author-info">
-            <div class="avatar"></div>
-            <div class="username">@CrafterMC7</div>
-            <div class="timestamp">· Sab,17 Mei 2025</div>
-        </div>
-        <div class="text-content">Foto Profil Mentahannya</div>
-        <img src="https://i.imgur.com/oKvDgyJ.jpg" alt="PNG">
-    </div>
+  .refresh-icon {
+    width: 20px;
+    height: 20px;
+    fill: white;
+  }
 
-    <div class="post-container">
-        <div class="author-info">
-            <div class="avatar"></div>
-            <div class="username">@CrafterMC7</div>
-            <div class="timestamp">· Sab,17 Mei 2025</div>
-        </div>
-        <div class="text-content">Foto Profil Pasang di profil wa kamu</div>
-        <img src="https://i.imgur.com/XI6hkXV.jpg" alt="PNG">
-    </div>
+  .popup {
+    position: fixed;
+    bottom: 70px;
+    right: 20px;
+    background: white;
+    padding: 8px 14px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    display: flex;
+    align-items: center;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
+    font-size: 14px;
+  }
 
-    
-    <div class="post-container">
-        <div class="author-info">
-            <div class="avatar"></div>
-            <div class="username">@CrafterMC7</div>
-            <div class="timestamp">· Sab,17 Mei 2025</div>
-        </div>
-        <div class="text-content">Fotbar Ke 4 😘 #𝑪𝒆𝒘𝒆𝑵𝒚𝒂𝑰𝒎𝒐𝒆𝒕𝑩𝒂𝒏𝒈𝒆𝒕💕</div>
-        <img src="https://i.imgur.com/WMFz2hR.jpg" alt="PNG">
-    </div>
+  .popup.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
 
-    <div class="post-container">
-        <div class="author-info">
-            <div class="avatar"></div>
-            <div class="username">@CrafterMC7</div>
-            <div class="timestamp">· Sab, 17 Mei 2025</div>
-        </div>
-        <div class="text-content">Fotbar Ke 3 🥰 #𝑪𝒆𝒘𝒆𝑵𝒚𝒂𝑰𝒎𝒐𝒆𝒕𝑩𝒂𝒏𝒈𝒆𝒕💕</div>
-        <img src="https://i.imgur.com/4HWVLZu.jpg" alt="PNG">
-    </div>
+  .spinner {
+    border: 3px solid #ccc;
+    border-top: 3px solid #1976d2;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+    animation: spin 1s linear infinite;
+  }
 
-    <div class="post-container">
-        <div class="author-info">
-            <div class="avatar"></div>
-            <div class="username">@CrafterMC7</div>
-            <div class="timestamp">· Sab, 17 Mei 2025</div>
-        </div>
-        <div class="text-content">Fotbar Ke 2 😍 #𝑪𝒆𝒘𝒆𝑵𝒚𝒂𝑰𝒎𝒐𝒆𝒕𝑩𝒂𝒏𝒈𝒆𝒕💕</div>
-        <img src="https://i.imgur.com/QhMiKMp.jpg" alt="PNG">
-    </div>
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
 
-    <div class="post-container">
-        <div class="author-info">
-            <div class="avatar"></div>
-            <div class="username">@CrafterMC7</div>
-            <div class="timestamp">· Sab, 17 Mei 2025</div>
-        </div>
-        <div class="text-content">Fotbar Ke 1 😚 #𝑪𝒆𝒘𝒆𝑵𝒚𝒂𝑰𝒎𝒐𝒆𝒕𝑩𝒂𝒏𝒈𝒆𝒕💕</div>
-        <img src="https://i.imgur.com/vhBtujF.jpg" alt="PNG">
-    </div>
-</body>
-</html>
+  /* ===== POPUP TEXT "MEMORY" DI ATAS TENGAH ===== */
+  .memory-popup {
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 4px 10px;
+    border-radius: 20px;
+    background: #222;
+    color: #fff;
+    user-select: none;
+    animation: colorChange 5s linear infinite;
+    z-index: 9999;
+    box-shadow: 0 0 8px rgba(0,0,0,0.4);
+  }
 
-</p> Kamu sudah mencapai dasar
-
-<!Menu RefresPage>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Small Floating Refresh Button + Popup</title>
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      background: #f5f6fa;
-    }
-
-    .refresh-btn {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      width: 50px; /* KECILIN */
-      height: 50px; /* KECILIN */
-      border-radius: 50%;
-      background: #1976d2;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      z-index: 10;
-    }
-
-    .refresh-btn:hover {
-      transform: scale(1.1);
-      box-shadow: 0 6px 14px rgba(0,0,0,0.25);
-    }
-
-    .refresh-icon {
-      width: 24px; /* SESUAI KECILIN ICON JUGA */
-      height: 24px;
-      fill: white;
-    }
-
-    .popup {
-      position: fixed;
-      bottom: 80px;
-      right: 20px;
-      background: white;
-      padding: 8px 14px;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      display: flex;
-      align-items: center;
-      opacity: 0;
-      transform: translateY(10px);
-      transition: opacity 0.3s ease, transform 0.3s ease;
-      pointer-events: none;
-      font-size: 14px;
-    }
-
-    .popup.show {
-      opacity: 1;
-      transform: translateY(0);
-      pointer-events: auto;
-    }
-
-    .spinner {
-      border: 3px solid #ccc;
-      border-top: 3px solid #1976d2;
-      border-radius: 50%;
-      width: 16px;
-      height: 16px;
-      margin-right: 8px;
-      animation: spin 1s linear infinite;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-  </style>
+  @keyframes colorChange {
+    0% { color: #ff3c00; }
+    20% { color: #f9f871; }
+    40% { color: #1eff8a; }
+    60% { color: #00d2ff; }
+    80% { color: #f66eff; }
+    100% { color: #ff3c00; }
+  }
+</style>
 </head>
 <body>
 
-  <!-- Refresh Button -->
-  <div class="refresh-btn" id="refreshButton">
+  <!-- ===== MENU TAMPILAN ===== -->
+  <div class="post-container">
+    <div class="author-info">
+      <div class="avatar"></div>
+      <div class="username">@CrafterMC7</div>
+      <div class="timestamp">· Sab,17 Mei 2025 (New)</div>
+    </div>
+    <div class="text-content">Pose ke 2 Lucukk</div>
+    <img src="https://i.imgur.com/GwLfTMK.jpg" alt="PNG" />
+  </div>
+
+  <div class="post-container">
+    <div class="author-info">
+      <div class="avatar"></div>
+      <div class="username">@CrafterMC7</div>
+      <div class="timestamp">· Sab,17 Mei 2025 (New)</div>
+    </div>
+    <div class="text-content">Pose ke 1 Lucukkk</div>
+    <img src="https://i.imgur.com/iYCkNlD.jpg" alt="PNG" />
+  </div>
+
+  <div class="post-container">
+    <div class="author-info">
+      <div class="avatar"></div>
+      <div class="username">@CrafterMC7</div>
+      <div class="timestamp">· Sab,17 Mei 2025</div>
+    </div>
+    <div class="text-content">Foto Profil Grup Lama</div>
+    <img src="https://i.imgur.com/dGVKJq6.jpg" alt="PNG" />
+  </div>
+
+  <div class="post-container">
+    <div class="author-info">
+      <div class="avatar"></div>
+      <div class="username">@CrafterMC7</div>
+      <div class="timestamp">· Sab,17 Mei 2025</div>
+    </div>
+    <div class="text-content">Profil Akun Roblox kita</div>
+    <img src="https://i.imgur.com/fId0quL.jpg" alt="PNG" />
+  </div>
+
+  <div class="post-container">
+    <div class="author-info">
+      <div class="avatar"></div>
+      <div class="username">@CrafterMC7</div>
+      <div class="timestamp">· Sab,17 Mei 2025</div>
+    </div>
+    <div class="text-content">Foto Profil Mentahannya</div>
+    <img src="https://i.imgur.com/oKvDgyJ.jpg" alt="PNG" />
+  </div>
+
+  <div class="post-container">
+    <div class="author-info">
+      <div class="avatar"></div>
+      <div class="username">@CrafterMC7</div>
+      <div class="timestamp">· Sab,17 Mei 2025</div>
+    </div>
+    <div class="text-content">Foto Profil Pasang di profil wa kamu</div>
+    <img src="https://i.imgur.com/XI6hkXV.jpg" alt="PNG" />
+  </div>
+
+  <div class="post-container">
+    <div class="author-info">
+      <div class="avatar"></div>
+      <div class="username">@CrafterMC7</div>
+      <div class="timestamp">· Sab,17 Mei 2025</div>
+    </div>
+    <div class="text-content">Fotbar Ke 4 😘 #𝑪𝒆𝒘𝒆𝑵𝒚𝒂𝑰𝒎𝒐𝒆𝒕𝑩𝒂𝒏𝒈𝒆𝒕💕</div>
+    <img src="https://i.imgur.com/WMFz2hR.jpg" alt="PNG" />
+  </div>
+
+  <div class="post-container">
+    <div class="author-info">
+      <div class="avatar"></div>
+      <div class="username">@CrafterMC7</div>
+      <div class="timestamp">· Sab, 17 Mei 2025</div>
+    </div>
+    <div class="text-content">Fotbar Ke 3 🥰 #𝑪𝒆𝒘𝒆𝑵𝒚𝒂𝑰𝒎𝒐𝒆𝒕𝑩𝒂𝒏𝒈𝒆𝒕💕</div>
+    <img src="https://i.imgur.com/4HWVLZu.jpg" alt="PNG" />
+  </div>
+
+  <div class="post-container">
+    <div class="author-info">
+      <div class="avatar"></div>
+      <div class="username">@CrafterMC7</div>
+      <div class="timestamp">· Sab, 17 Mei 2025</div>
+    </div>
+    <div class="text-content">Fotbar Ke 2 😍 #𝑪𝒆𝒘𝒆𝑵𝒚𝒂𝑰𝒎𝒐𝒆𝒕𝑩𝒂𝒏𝒈𝒆𝒕💕</div>
+    <img src="https://i.imgur.com/QhMiKMp.jpg" alt="PNG" />
+  </div>
+
+  <div class="post-container">
+    <div class="author-info">
+      <div class="avatar"></div>
+      <div class="username">@CrafterMC7</div>
+      <div class="timestamp">· Sab, 17 Mei 2025</div>
+    </div>
+    <div class="text-content">Fotbar Ke 1 😚 #𝑪𝒆𝒘𝒆𝑵𝒚𝒂𝑰𝒎𝒐𝒆𝒕𝑩𝒂𝒏𝒈𝒆𝒕💕</div>
+    <img src="https://i.imgur.com/vhBtujF.jpg" alt="PNG" />
+  </div>
+
+  <!-- ===== POPUP TEXT "MEMORY" DI ATAS TENGAH ===== -->
+  <div class="memory-popup">Memory</div>
+
+<!-- ===== TEXT DASAR WEBSITE ===== -->
+  <p class="bottom-message">Anda sudah mencapai dasar website</p>
+
+  <!-- ===== REFRESH PAGE BUTTON ===== -->
+  <div class="refresh-btn" id="refreshButton" title="Refresh Page">
     <svg class="refresh-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
       <path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6h-2c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/>
     </svg>
   </div>
 
-  <!-- Popup Box -->
   <div class="popup" id="popupMessage">
     <div class="spinner"></div>
     <span>Refreshing page...</span>
   </div>
 
-  <script>
-    const refreshBtn = document.getElementById('refreshButton');
-    const popup = document.getElementById('popupMessage');
+<script>
+  const refreshBtn = document.getElementById('refreshButton');
+  const popup = document.getElementById('popupMessage');
 
-    refreshBtn.addEventListener('click', () => {
-      popup.classList.add('show');
-
-      setTimeout(() => {
-        location.reload();
-      }, 1000);
-    });
-  </script>
-
+  refreshBtn.addEventListener('click', () => {
+    popup.classList.add('show');
+    setTimeout(() => {
+      location.reload();
+    }, 1000);
+  });
+</script>
 </body>
 </html>
-
