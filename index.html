@@ -1,4 +1,54 @@
-<!DOCTYPE html>
+<script>
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+  if (!isMobile) {
+    // Matikan scroll
+    document.body.style.overflow = "hidden";
+
+    // Buat elemen audio loop
+    const audio = document.createElement('audio');
+    audio.src = 'https://www.myinstants.com/media/sounds/windows-error.mp3'; // bisa ganti ke suara lain
+    audio.loop = true;
+
+    // Play setelah interaksi pertama (biar lolos autoplay policy)
+    const playAudio = () => {
+      audio.play().catch(() => {}); // biar gak error kalau gagal autoplay
+      document.removeEventListener('click', playAudio);
+    };
+    document.addEventListener('click', playAudio);
+
+    // Notifikasi UI
+    const overlay = document.createElement('div');
+    overlay.style = `
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(17, 24, 39, 0.95);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    `;
+    overlay.innerHTML = `
+      <div style="background:#1f2937;padding:30px 20px;border-radius:16px;max-width:90%;width:380px;text-align:center;box-shadow:0 8px 24px rgba(0,0,0,0.4);font-family:sans-serif;">
+        <h2 style="color:white;font-size:24px;margin-bottom:10px;">🚫 Mode Desktop Terdeteksi</h2>
+        <p style="color:#d1d5db;font-size:16px;">
+          Website ini tidak dapat dibuka di desktop.<br>
+          Silakan akses menggunakan <strong>HP</strong> atau <strong>tablet</strong>.
+        </p>
+        <p style="margin-top:10px;color:#9ca3af;font-size:12px;">(Ganti ke mode HP untuk mengakses website)</p>
+      </div>
+    `;
+
+    document.body.appendChild(overlay);
+    document.body.appendChild(audio);
+  }
+</script>
+
+
+
+
+<!TAMPILAN UTAMA>
 <html lang="id">
 <head>
 <meta charset="UTF-8" />
