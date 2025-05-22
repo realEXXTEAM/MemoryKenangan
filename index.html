@@ -1,284 +1,354 @@
-<!DOCTYPE html>
-<html lang="en">
+<!TAMPILAN UTAMA>
+<html lang="id">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Hacker Shutdown</title>
+<title>MEMORY BEST FRIEND KITA 🥰</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
-
-  /* Background Matrix Rain */
-  body, html {
-    margin: 0; padding: 0;
-    width: 100%; height: 100%;
-    overflow: hidden;
-    background: black;
-    font-family: 'Share Tech Mono', monospace;
-    color: #00ff00;
-  }
-
-  canvas {
-    position: fixed;
-    top: 0; left: 0;
-    z-index: 0;
-  }
-
-  .container {
-    position: relative;
-    z-index: 10;
-    height: 100vh;
+  /* ===== MENU TAMPILAN ===== */
+  body {
+    font-family: sans-serif;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    padding: 0 20px;
-    box-sizing: border-box;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: flex-start;
+    min-height: 100vh;
+    margin: 20px;
+    background-color: #f0f0f0;
   }
 
-  /* Avatar */
+  .post-container {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    width: 300px;
+    margin-bottom: 20px;
+  }
+
+  .author-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
   .avatar {
-    width: 120px;
-    height: 120px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
-    border: 3px solid #00ff00;
-    box-shadow: 0 0 20px #00ff00aa;
-    background: black;
+    margin-right: 10px;
+    background-image: url('https://tr.rbxcdn.com/30DAY-AvatarHeadshot-0048E68397891AA42178DEC27A26D433-Png/150/150/AvatarHeadshot/Webp/noFilter');
     background-size: cover;
     background-position: center;
   }
 
-  .terminal {
-    background: #010b00;
-    border: 2px solid #00ff00;
-    padding: 30px 40px;
-    width: 600px;
-    max-width: 90vw;
-    box-sizing: border-box;
-    box-shadow: 0 0 30px #00ff00aa;
-    border-radius: 10px;
-    white-space: pre-wrap;
-    font-size: 18px;
-    min-height: 150px;
-  }
-
-  .typing-cursor {
-    display: inline-block;
-    width: 10px;
-    height: 24px;
-    background: #00ff00;
-    margin-left: 2px;
-    animation: blink 1s steps(2, start) infinite;
-    vertical-align: bottom;
-  }
-
-  @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
-  }
-
-  .countdown {
-    font-size: 48px;
-    text-align: center;
-    letter-spacing: 8px;
-  }
-
-  .progress-bar {
-    margin-top: 20px;
-    width: 100%;
-    height: 15px;
-    background: #003300;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: inset 0 0 10px #00ff00aa;
-  }
-
-  .progress-bar-fill {
-    height: 100%;
-    background: #00ff00;
-    width: 0%;
-    transition: width 0.3s linear;
-  }
-
-  /* Popup text style */
-  .popup-text {
-    position: fixed;
-    color: #ff0000cc;
+  .username {
     font-weight: bold;
-    font-size: 24px;
-    user-select: none;
-    pointer-events: none;
-    animation: popup-fade 2s forwards;
-    z-index: 50;
-    text-shadow: 0 0 5px #ff0000;
+    font-size: 0.9em;
   }
 
-  @keyframes popup-fade {
-    0% { opacity: 1; transform: translateY(0); }
-    100% { opacity: 0; transform: translateY(-50px); }
+  .timestamp {
+    color: #777;
+    font-size: 0.8em;
+    margin-left: 5px;
   }
 
-  .footer {
+  .text-content {
+    margin-bottom: 10px;
+    font-size: 0.9em;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 6px;
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  /* ===== STYLE REFRESH BUTTON ===== */
+  .refresh-btn {
     position: fixed;
-    bottom: 5px;
-    width: 100%;
-    text-align: center;
-    font-size: 12px;
-    color: #004400;
+    bottom: 20px;
+    right: 20px;
+    width: 40px;  
+    height: 40px; 
+    border-radius: 50%;
+    background: #1976d2;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    z-index: 10;
+  }
+
+  .refresh-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.25);
+  }
+
+  .refresh-icon {
+    width: 20px;
+    height: 20px;
+    fill: white;
+  }
+
+  .popup {
+    position: fixed;
+    bottom: 70px;
+    right: 20px;
+    background: white;
+    padding: 8px 14px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    display: flex;
+    align-items: center;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
+    font-size: 14px;
+  }
+
+  .popup.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .spinner {
+    border: 3px solid #ccc;
+    border-top: 3px solid #1976d2;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  /* ===== POPUP TEXT "MEMORY" DI ATAS TENGAH ===== */
+  .memory-popup {
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 4px 10px;
+    border-radius: 20px;
+    background: #222;
+    color: #fff;
     user-select: none;
-    z-index: 15;
+    animation: colorChange 5s linear infinite;
+    z-index: 9999;
+    box-shadow: 0 0 8px rgba(0,0,0,0.4);
+  }
+
+  @keyframes colorChange {
+    0% { color: #ff3c00; }
+    20% { color: #f9f871; }
+    40% { color: #1eff8a; }
+    60% { color: #00d2ff; }
+    80% { color: #f66eff; }
+    100% { color: #ff3c00; }
   }
 </style>
 </head>
 <body>
-<canvas id="matrix"></canvas>
 
-<div class="container" role="main" aria-label="Shutdown terminal simulation">
-  <div class="avatar" style="background-image: url('https://i.imgur.com/asJJTFr.png');" aria-label="User avatar"></div>
-  <div id="output" class="terminal" aria-live="polite" aria-atomic="true"></div><span class="typing-cursor"></span>
-  <div id="countdown" class="countdown" aria-live="polite" aria-atomic="true"></div>
-  <div class="progress-bar" aria-hidden="true">
-    <div id="progress" class="progress-bar-fill"></div>
+  <!-- ===== MENU TAMPILAN ===== -->
+
+  <div class="post-container">
+    <div class="author-info">
+      <div class="avatar"></div>
+      <div class="username">@CrafterMC7</div>
+      <div class="timestamp">· Sel,20 Mei 2025</div>
+    </div>
+    <div class="text-content">Lagi afk kita paksa Fotbar wkwk 🤭</div>
+    <img src="https://i.imgur.com/Uuew1P3.jpg" alt="PNG" />
+    <img src="https://i.imgur.com/4lzAL8k.jpg" alt="PNG" />
   </div>
-</div>
+  
+  <div class="post-container">
+    <div class="author-info">
+      <div class="avatar"></div>
+      <div class="username">@CrafterMC7</div>
+      <div class="timestamp">· Sel,20 Mei 2025</div>
+    </div>
+    <div class="text-content">Pinkyyyy 😍💕</div>
+    <img src="https://i.imgur.com/3UWo1pz.jpg" alt="PNG" />    
+    <img src="https://i.imgur.com/JeON27o.jpg" alt="PNG" />    
+    <img src="https://i.imgur.com/Nq2aJ3I.jpg" alt="PNG" />    
+    <img src="https://i.imgur.com/oKGhSr7.jpg" alt="PNG" />
+    <img src="https://i.imgur.com/ilPB9wI.jpg" alt="PNG" />
+  </div>
+  
+  <div class="post-container">
+    <div class="author-info">
+      <div class="avatar"></div>
+      <div class="username">@CrafterMC7</div>
+      <div class="timestamp">· Sel,20 Mei 2025</div>
+    </div>
+    <div class="text-content">Indah banget pemandangannya 🤭</div>
+    <img src="https://i.imgur.com/ghF2hTU.jpg" alt="PNG" />
+    <img src="https://i.imgur.com/1K1HtKU.jpg" alt="PNG" />
+    <img src="https://i.imgur.com/1xIYb2K.jpg" alt="PNG" />
+    <img src="https://i.imgur.com/6MmbFf8.jpg" alt="PNG" />    
+    <img src="https://i.imgur.com/mpuhb37.jpg" alt="PNG" />
+    <img src="https://i.imgur.com/pDlWPB6.jpg" alt="PNG" />
+    <img src="https://i.imgur.com/6MmbFf8.jpg" alt="PNG" />
+    <img src="https://i.imgur.com/0VBmv27.jpg" alt="PNG" />
+    <img src="https://i.imgur.com/OVPl8yS.jpg" alt="PNG" />
+    <img src="https://i.imgur.com/c0ccLMJ.jpg" alt="PNG" />
+  </div>
+  
+  <div class="post-container">
+    <div class="author-info">
+      <div class="avatar"></div>
+      <div class="username">@CrafterMC7</div>
+      <div class="timestamp">· Sel,20 Mei 2025</div>
+    </div>
+    <div class="text-content">Mount Merapi 🥳</div>
+    <img src="https://i.imgur.com/jKBkUyc.jpg" alt="PNG" />
+    <img src="https://i.imgur.com/d9iideT.jpg" alt="PNG" />
+  </div>
 
-<div class="footer">Shutdown &copy; 2025</div>
+  <div class="post-container">
+    <div class="author-info">
+      <div class="avatar"></div>
+      <div class="username">@CrafterMC7</div>
+      <div class="timestamp">· Sab,17 Mei 2025</div>
+    </div>
+    <div class="text-content">Pose ke 2 Lucukk</div>
+    <img src="https://i.imgur.com/GwLfTMK.jpg" alt="PNG" />
+  </div>
+
+  <div class="post-container">
+    <div class="author-info">
+      <div class="avatar"></div>
+      <div class="username">@CrafterMC7</div>
+      <div class="timestamp">· Sab,17 Mei 2025</div>
+    </div>
+    <div class="text-content">Pose ke 1 Lucukkk</div>
+    <img src="https://i.imgur.com/iYCkNlD.jpg" alt="PNG" />
+  </div>
+
+  <div class="post-container">
+    <div class="author-info">
+      <div class="avatar"></div>
+      <div class="username">@CrafterMC7</div>
+      <div class="timestamp">· Sab,17 Mei 2025</div>
+    </div>
+    <div class="text-content">Foto Profil Grup Lama</div>
+    <img src="https://i.imgur.com/dGVKJq6.jpg" alt="PNG" />
+  </div>
+
+  <div class="post-container">
+    <div class="author-info">
+      <div class="avatar"></div>
+      <div class="username">@CrafterMC7</div>
+      <div class="timestamp">· Sab,17 Mei 2025</div>
+    </div>
+    <div class="text-content">Profil Akun Roblox kita</div>
+    <img src="https://i.imgur.com/fId0quL.jpg" alt="PNG" />
+  </div>
+
+  <div class="post-container">
+    <div class="author-info">
+      <div class="avatar"></div>
+      <div class="username">@CrafterMC7</div>
+      <div class="timestamp">· Sab,17 Mei 2025</div>
+    </div>
+    <div class="text-content">Foto Profil Mentahannya</div>
+    <img src="https://i.imgur.com/oKvDgyJ.jpg" alt="PNG" />
+  </div>
+
+  <div class="post-container">
+    <div class="author-info">
+      <div class="avatar"></div>
+      <div class="username">@CrafterMC7</div>
+      <div class="timestamp">· Sab,17 Mei 2025</div>
+    </div>
+    <div class="text-content">Foto Profil Pasang di profil wa kamu</div>
+    <img src="https://i.imgur.com/XI6hkXV.jpg" alt="PNG" />
+  </div>
+
+  <div class="post-container">
+    <div class="author-info">
+      <div class="avatar"></div>
+      <div class="username">@CrafterMC7</div>
+      <div class="timestamp">· Sab,17 Mei 2025</div>
+    </div>
+    <div class="text-content">Fotbar Ke 4 😘 #𝑪𝒆𝒘𝒆𝑵𝒚𝒂𝑰𝒎𝒐𝒆𝒕𝑩𝒂𝒏𝒈𝒆𝒕💕</div>
+    <img src="https://i.imgur.com/WMFz2hR.jpg" alt="PNG" />
+  </div>
+
+  <div class="post-container">
+    <div class="author-info">
+      <div class="avatar"></div>
+      <div class="username">@CrafterMC7</div>
+      <div class="timestamp">· Sab, 17 Mei 2025</div>
+    </div>
+    <div class="text-content">Fotbar Ke 3 🥰 #𝑪𝒆𝒘𝒆𝑵𝒚𝒂𝑰𝒎𝒐𝒆𝒕𝑩𝒂𝒏𝒈𝒆𝒕💕</div>
+    <img src="https://i.imgur.com/4HWVLZu.jpg" alt="PNG" />
+  </div>
+
+  <div class="post-container">
+    <div class="author-info">
+      <div class="avatar"></div>
+      <div class="username">@CrafterMC7</div>
+      <div class="timestamp">· Sab, 17 Mei 2025</div>
+    </div>
+    <div class="text-content">Fotbar Ke 2 😍 #𝑪𝒆𝒘𝒆𝑵𝒚𝒂𝑰𝒎𝒐𝒆𝒕𝑩𝒂𝒏𝒈𝒆𝒕💕</div>
+    <img src="https://i.imgur.com/QhMiKMp.jpg" alt="PNG" />
+  </div>
+
+  <div class="post-container">
+    <div class="author-info">
+      <div class="avatar"></div>
+      <div class="username">@CrafterMC7</div>
+      <div class="timestamp">· Sab, 17 Mei 2025</div>
+    </div>
+    <div class="text-content">Fotbar Ke 1 😚 #𝑪𝒆𝒘𝒆𝑵𝒚𝒂𝑰𝒎𝒐𝒆𝒕𝑩𝒂𝒏𝒈𝒆𝒕💕</div>
+    <img src="https://i.imgur.com/vhBtujF.jpg" alt="PNG" />
+  </div>
+
+  <!-- ===== POPUP TEXT "MEMORY" DI ATAS TENGAH ===== -->
+  <div class="memory-popup">Memory</div>
+
+<!-- ===== TEXT DASAR WEBSITE ===== -->
+  <p class="bottom-message">Anda sudah mencapai dasar website</p>
+
+  <!-- ===== REFRESH PAGE BUTTON ===== -->
+  <div class="refresh-btn" id="refreshButton" title="Refresh Page">
+    <svg class="refresh-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6h-2c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/>
+    </svg>
+  </div>
+
+  <div class="popup" id="popupMessage">
+    <div class="spinner"></div>
+    <span>Refreshing page...</span>
+  </div>
 
 <script>
-  // Matrix rain effect
-  const canvas = document.getElementById('matrix');
-  const ctx = canvas.getContext('2d');
+  const refreshBtn = document.getElementById('refreshButton');
+  const popup = document.getElementById('popupMessage');
 
-  let width = canvas.width = window.innerWidth;
-  let height = canvas.height = window.innerHeight;
-
-  const letters = '01';
-  const fontSize = 16;
-  const columns = Math.floor(width / fontSize);
-  const drops = Array(columns).fill(1);
-
-  function drawMatrix() {
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-    ctx.fillRect(0, 0, width, height);
-
-    ctx.fillStyle = '#00ff00';
-    ctx.font = fontSize + 'px monospace';
-
-    for(let i = 0; i < drops.length; i++) {
-      const text = letters.charAt(Math.floor(Math.random() * letters.length));
-      ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-      if (drops[i] * fontSize > height && Math.random() > 0.975) {
-        drops[i] = 0;
-      }
-      drops[i]++;
-    }
-  }
-
-  setInterval(drawMatrix, 50);
-
-  window.addEventListener('resize', () => {
-    width = canvas.width = window.innerWidth;
-    height = canvas.height = window.innerHeight;
-  });
-
-  // Terminal typing and shutdown countdown
-  const output = document.getElementById('output');
-  const cursor = document.querySelector('.typing-cursor');
-  const countdown = document.getElementById('countdown');
-  const progress = document.getElementById('progress');
-
-  const commands = [
-    "Initializing shutdown sequence...",
-    "Terminating all active processes...",
-    "Disconnecting network interfaces...",
-    "Flushing caches and buffers...",
-    "Closing security protocols...",
-    "System shutdown in progress."
-  ];
-
-  let lineIndex = 0;
-  let charIndex = 0;
-
-  function typeLine(line, callback) {
-    if (charIndex < line.length) {
-      output.textContent += line.charAt(charIndex);
-      charIndex++;
-      setTimeout(() => typeLine(line, callback), 50 + Math.random() * 50);
-    } else {
-      output.textContent += '\n';
-      charIndex = 0;
-      callback();
-    }
-  }
-
-  function runCommands(i = 0) {
-    if (i < commands.length) {
-      typeLine(commands[i], () => {
-        runCommands(i + 1);
-      });
-    } else {
-      startCountdown(10);
-    }
-  }
-
-  function startCountdown(seconds) {
-    output.style.display = 'none';
-    cursor.style.display = 'none';
-    countdown.textContent = seconds;
-    let current = seconds;
-    let interval = setInterval(() => {
-      current--;
-      countdown.textContent = current > 0 ? current : '0';
-      progress.style.width = ((seconds - current) / seconds) * 100 + '%';
-      if (current <= 0) {
-        clearInterval(interval);
-        countdown.textContent = 'SHUTDOWN COMPLETE';
-        countdown.style.color = '#ff0000';
-      }
-    }, 1000);
-  }
-
-  runCommands();
-
-  // Popup text random
-  const popupTexts = [
-    "TEMAN GA ADA HATI TOLOL",
-    "FUCK YOU",
-    "KU KIRA TEMAN TERNYATA SAMPAH",
-    "YOU'RE A JOKE",
-    "BODOH",
-    "KENANANG PALSU TEMAN PALSU",
-    "STUPID",
-    "CAPE GUWAAA",
-    "TAI LUU ANJING"
-  ];
-
-  function randomInt(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
-
-  function spawnPopupText() {
-    const popup = document.createElement('div');
-    popup.className = 'popup-text';
-    popup.textContent = popupTexts[Math.floor(Math.random() * popupTexts.length)];
-
-    // Random position on screen
-    popup.style.top = randomInt(10, window.innerHeight - 50) + 'px';
-    popup.style.left = randomInt(10, window.innerWidth - 150) + 'px';
-
-    document.body.appendChild(popup);
-
-    // Remove after animation
+  refreshBtn.addEventListener('click', () => {
+    popup.classList.add('show');
     setTimeout(() => {
-      popup.remove();
-    }, 2000);
-  }
-
-  // Spawn popup every 1.5-3 seconds randomly
-  setInterval(() => {
-    spawnPopupText();
-  }, 1500 + Math.random() * 1500);
+      location.reload();
+    }, 1000);
+  });
 </script>
 </body>
 </html>
