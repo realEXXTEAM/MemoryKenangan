@@ -1,3 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Shutdown Notification</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    .popup {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      text-align: center;
+      max-width: 400px;
+    }
+
+    .popup h2 {
+      margin-bottom: 15px;
+    }
+
+    .popup p {
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+
+    .countdown, .current-time {
+      font-size: 20px;
+      font-weight: bold;
+      color: #f44336;
+    }
+
+    .popup button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background-color: #f44336;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .popup button:hover {
+      background-color: #d32f2f;
+    }
+  </style>
+</head>
+<body>
+
+<div class="overlay" id="shutdownPopup">
+  <div class="popup">
+    <h2>⚠️ Website Akan Shutdown</h2>
+    <p>Waktu sekarang:</p>
+    <div class="current-time" id="currentTime">--:--:--</div>
+    <p>Shutdown dalam:</p>
+    <div class="countdown" id="countdown">-- detik</div>
+    <button onclick="shutdownNow()">Tutup Sekarang</button>
+  </div>
+</div>
+
+<script>
+  const countdownEl = document.getElementById('countdown');
+  const timeEl = document.getElementById('currentTime');
+
+  // Hitung waktu besok jam 04:00
+  const now = new Date();
+  const shutdownTarget = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 4, 0, 0, 0);
+
+  function updateClockAndCountdown() {
+    const currentTime = new Date();
+    timeEl.textContent = currentTime.toLocaleTimeString();
+
+    const distance = shutdownTarget - currentTime;
+    const secondsLeft = Math.floor(distance / 1000);
+
+    if (distance <= 0) {
+      clearInterval(timer);
+      shutdownNow();
+    } else {
+      const hrs = Math.floor(secondsLeft / 3600);
+      const mins = Math.floor((secondsLeft % 3600) / 60);
+      const secs = secondsLeft % 60;
+      countdownEl.textContent = `${hrs} jam ${mins} menit ${secs} detik`;
+    }
+  }
+
+  function shutdownNow() {
+    window.location.href = "https://www.google.com/";
+  }
+
+  const timer = setInterval(updateClockAndCountdown, 1000);
+  updateClockAndCountdown();
+</script>
+
+</body>
+</html>
+
+
+
 <!TAMPILAN UTAMA>
 <html lang="id">
 <head>
@@ -170,7 +283,7 @@
     <div class="author-info">
       <div class="avatar"></div>
       <div class="username">@CrafterMC7</div>
-      <div class="timestamp">· Sel,20 Mei 2025 (NEW)</div>
+      <div class="timestamp">· Sel,20 Mei 2025</div>
     </div>
     <div class="text-content">Lagi afk kita paksa Fotbar wkwk 🤭</div>
     <img src="https://i.imgur.com/Uuew1P3.jpg" alt="PNG" />
@@ -181,7 +294,7 @@
     <div class="author-info">
       <div class="avatar"></div>
       <div class="username">@CrafterMC7</div>
-      <div class="timestamp">· Sel,20 Mei 2025 (NEW)</div>
+      <div class="timestamp">· Sel,20 Mei 2025</div>
     </div>
     <div class="text-content">Pinkyyyy 😍💕</div>
     <img src="https://i.imgur.com/3UWo1pz.jpg" alt="PNG" />    
@@ -195,7 +308,7 @@
     <div class="author-info">
       <div class="avatar"></div>
       <div class="username">@CrafterMC7</div>
-      <div class="timestamp">· Sel,20 Mei 2025 (NEW)</div>
+      <div class="timestamp">· Sel,20 Mei 2025</div>
     </div>
     <div class="text-content">Indah banget pemandangannya 🤭</div>
     <img src="https://i.imgur.com/ghF2hTU.jpg" alt="PNG" />
@@ -214,15 +327,13 @@
     <div class="author-info">
       <div class="avatar"></div>
       <div class="username">@CrafterMC7</div>
-      <div class="timestamp">· Sel,20 Mei 2025 (NEW)</div>
+      <div class="timestamp">· Sel,20 Mei 2025</div>
     </div>
     <div class="text-content">Mount Merapi 🥳</div>
     <img src="https://i.imgur.com/jKBkUyc.jpg" alt="PNG" />
     <img src="https://i.imgur.com/d9iideT.jpg" alt="PNG" />
   </div>
 
-     <p class="bottom-message">🔰 Memory Lainya 🔰</p>
-  
   <div class="post-container">
     <div class="author-info">
       <div class="avatar"></div>
