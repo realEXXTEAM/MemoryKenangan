@@ -1,8 +1,7 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Shutdown Notification</title>
+  <title>SHUTDOWN NOTIFIKASI</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -51,16 +50,12 @@
       border: none;
       border-radius: 6px;
       cursor: pointer;
-      transition: background-color 0.3s;
-    }
-
-    .popup button:hover {
-      background-color: #d32f2f;
     }
   </style>
 </head>
 <body>
 
+<!-- 🔴 Popup UI Utama (Layer Pertama) -->
 <div class="overlay" id="shutdownPopup">
   <div class="popup">
     <h2>⚠️ Website Akan Shutdown</h2>
@@ -68,13 +63,21 @@
     <div class="current-time" id="currentTime">--:--:--</div>
     <p>Shutdown dalam:</p>
     <div class="countdown" id="countdown">-- detik</div>
-    <button onclick="shutdownNow()">Tutup Sekarang</button>
+    <button onclick="closePopup()">Tutup Popup Shutdown</button>
   </div>
+</div>
+
+<!-- ✅ Konten Website / Script Lain -->
+<div id="mainContent" style="display:none; padding: 20px;">
+  <h1>Selamat datang di website!</h1>
+  <p>Konten atau script lain akan berjalan di sini...</p>
 </div>
 
 <script>
   const countdownEl = document.getElementById('countdown');
   const timeEl = document.getElementById('currentTime');
+  const popupEl = document.getElementById('shutdownPopup');
+  const mainContent = document.getElementById('mainContent');
 
   // Hitung waktu besok jam 04:00
   const now = new Date();
@@ -89,7 +92,7 @@
 
     if (distance <= 0) {
       clearInterval(timer);
-      shutdownNow();
+      window.location.href = "https://www.google.com/";
     } else {
       const hrs = Math.floor(secondsLeft / 3600);
       const mins = Math.floor((secondsLeft % 3600) / 60);
@@ -98,8 +101,18 @@
     }
   }
 
-  function shutdownNow() {
-    window.location.href = "https://www.google.com/";
+  function closePopup() {
+    popupEl.style.display = "none";
+    mainContent.style.display = "block";
+
+    // 👉 Di sini bisa mulai jalankan script lain
+    startOtherScript();
+  }
+
+  function startOtherScript() {
+    console.log("✅ Script lain mulai dijalankan di sini...");
+    // Contoh efek atau pemanggilan fungsi lainnya
+    document.body.style.background = "#f5f5f5";
   }
 
   const timer = setInterval(updateClockAndCountdown, 1000);
@@ -108,6 +121,7 @@
 
 </body>
 </html>
+
 
 
 
