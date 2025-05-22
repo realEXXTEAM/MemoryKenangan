@@ -3,96 +3,225 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Shutdown Countdown</title>
+<title>Hacker Shutdown</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+  /* Background Matrix Rain */
   body, html {
     margin: 0; padding: 0;
-    height: 100vh; width: 100vw;
+    width: 100%; height: 100%;
+    overflow: hidden;
     background: black;
-    color: #00ff00;
     font-family: 'Share Tech Mono', monospace;
+    color: #00ff00;
+  }
+
+  canvas {
+    position: fixed;
+    top: 0; left: 0;
+    z-index: 0;
+  }
+
+  .container {
+    position: relative;
+    z-index: 10;
+    height: 100vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-    user-select: none;
+    gap: 20px;
+    padding: 0 20px;
+    box-sizing: border-box;
   }
-  #countdownDisplay {
-    font-size: 48px;
-    letter-spacing: 6px;
+
+  /* Avatar */
+  .avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 3px solid #00ff00;
+    box-shadow: 0 0 20px #00ff00aa;
+    background: black;
+    background-size: cover;
+    background-position: center;
   }
-  #shutdownScreen {
-    display: none;
-    white-space: pre-wrap;
-    font-size: 20px;
+
+  .terminal {
+    background: #010b00;
+    border: 2px solid #00ff00;
+    padding: 30px 40px;
+    width: 600px;
     max-width: 90vw;
-    text-align: center;
-    margin-top: 30px;
-    line-height: 1.5;
+    box-sizing: border-box;
+    box-shadow: 0 0 30px #00ff00aa;
+    border-radius: 10px;
+    white-space: pre-wrap;
+    font-size: 18px;
+    min-height: 150px;
   }
+
   .typing-cursor {
     display: inline-block;
     width: 10px;
-    height: 30px;
+    height: 24px;
     background: #00ff00;
+    margin-left: 2px;
     animation: blink 1s steps(2, start) infinite;
     vertical-align: bottom;
-    margin-left: 4px;
   }
+
   @keyframes blink {
-    0%, 100% {opacity: 1;}
-    50% {opacity: 0;}
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  .countdown {
+    font-size: 48px;
+    text-align: center;
+    letter-spacing: 8px;
+  }
+
+  .progress-bar {
+    margin-top: 20px;
+    width: 100%;
+    height: 15px;
+    background: #003300;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: inset 0 0 10px #00ff00aa;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: #00ff00;
+    width: 0%;
+    transition: width 0.3s linear;
+  }
+
+  /* Popup text style */
+  .popup-text {
+    position: fixed;
+    color: #ff0000cc;
+    font-weight: bold;
+    font-size: 24px;
+    user-select: none;
+    pointer-events: none;
+    animation: popup-fade 2s forwards;
+    z-index: 50;
+    text-shadow: 0 0 5px #ff0000;
+  }
+
+  @keyframes popup-fade {
+    0% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(-50px); }
+  }
+
+  .footer {
+    position: fixed;
+    bottom: 5px;
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+    color: #004400;
+    user-select: none;
+    z-index: 15;
   }
 </style>
 </head>
 <body>
+<canvas id="matrix"></canvas>
 
-<div id="countdownDisplay" aria-live="polite" aria-atomic="true" role="timer"></div>
-
-<div id="shutdownScreen" aria-live="polite" aria-atomic="true" role="alert" aria-label="Shutdown sequence">
-  <div id="shutdownText"></div><span class="typing-cursor"></span>
+<div class="container" role="main" aria-label="Shutdown terminal simulation">
+  <div class="avatar" style="background-image: url('https://i.imgur.com/asJJTFr.png');" aria-label="User avatar"></div>
+  <div id="output" class="terminal" aria-live="polite" aria-atomic="true"></div><span class="typing-cursor"></span>
+  <div id="countdown" class="countdown" aria-live="polite" aria-atomic="true"></div>
+  <div class="progress-bar" aria-hidden="true">
+    <div id="progress" class="progress-bar-fill"></div>
+  </div>
 </div>
 
+<div class="footer">Hacker Shutdown Simulation &copy; 2025</div>
+
 <script>
-  const countdownDisplay = document.getElementById('countdownDisplay');
-  const shutdownScreen = document.getElementById('shutdownScreen');
-  const shutdownText = document.getElementById('shutdownText');
-
-  // Hitung mundur ke jam 4 pagi besok
-  function getNextShutdownTime() {
+  // Shutdown redirect logic
+  function checkShutdown() {
     const now = new Date();
-    const shutdown = new Date(now);
-    shutdown.setHours(4,0,0,0);
-    if (now >= shutdown) {
-      shutdown.setDate(shutdown.getDate() + 1);
+    const shutdownHour = 4;
+    const shutdownMinute = 0;
+    const shutdownSecond = 0;
+
+    const shutdownTime = new Date(now);
+    shutdownTime.setHours(shutdownHour, shutdownMinute, shutdownSecond, 0);
+
+    if (now >= shutdownTime || localStorage.getItem('shutdownDone') === 'true') {
+      localStorage.setItem('shutdownDone', 'true');
+      window.location.href = 'https://www.google.com';
+      return true;
     }
-    return shutdown;
+    return false;
   }
 
-  let shutdownTime = getNextShutdownTime();
-
-  function formatTime(ms) {
-    const totalSeconds = Math.floor(ms / 1000);
-    const h = Math.floor(totalSeconds / 3600).toString().padStart(2,'0');
-    const m = Math.floor((totalSeconds % 3600) / 60).toString().padStart(2,'0');
-    const s = (totalSeconds % 60).toString().padStart(2,'0');
-    return `${h}:${m}:${s}`;
-  }
-
-  let countdownInterval = setInterval(() => {
+  if (!checkShutdown()) {
     const now = new Date();
-    let diff = shutdownTime - now;
-
-    if (diff <= 0) {
-      clearInterval(countdownInterval);
-      startShutdownSequence();
+    const shutdownTime = new Date(now);
+    shutdownTime.setHours(4, 0, 0, 0);
+    let msToShutdown = shutdownTime - now;
+    if (msToShutdown < 0) {
+      localStorage.setItem('shutdownDone', 'true');
+      window.location.href = 'https://www.google.com';
     } else {
-      countdownDisplay.textContent = `Shutdown dalam: ${formatTime(diff)}`;
+      setTimeout(() => {
+        localStorage.setItem('shutdownDone', 'true');
+        window.location.href = 'https://www.google.com';
+      }, msToShutdown);
     }
-  }, 1000);
+  }
 
-  // Shutdown commands untuk typing effect
+  // Matrix rain effect
+  const canvas = document.getElementById('matrix');
+  const ctx = canvas.getContext('2d');
+
+  let width = canvas.width = window.innerWidth;
+  let height = canvas.height = window.innerHeight;
+
+  const letters = '01';
+  const fontSize = 16;
+  const columns = Math.floor(width / fontSize);
+  const drops = Array(columns).fill(1);
+
+  function drawMatrix() {
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+    ctx.fillRect(0, 0, width, height);
+
+    ctx.fillStyle = '#00ff00';
+    ctx.font = fontSize + 'px monospace';
+
+    for(let i = 0; i < drops.length; i++) {
+      const text = letters.charAt(Math.floor(Math.random() * letters.length));
+      ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+      if (drops[i] * fontSize > height && Math.random() > 0.975) {
+        drops[i] = 0;
+      }
+      drops[i]++;
+    }
+  }
+
+  setInterval(drawMatrix, 50);
+
+  window.addEventListener('resize', () => {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+  });
+
+  // Terminal typing and shutdown countdown
+  const output = document.getElementById('output');
+  const cursor = document.querySelector('.typing-cursor');
+  const countdown = document.getElementById('countdown');
+  const progress = document.getElementById('progress');
+
   const commands = [
     "Initializing shutdown sequence...",
     "Terminating all active processes...",
@@ -105,34 +234,77 @@
   let lineIndex = 0;
   let charIndex = 0;
 
-  function startShutdownSequence() {
-    countdownDisplay.style.display = 'none';
-    shutdownScreen.style.display = 'block';
-    typeLine(commands[lineIndex]);
-  }
-
-  function typeLine(line) {
+  function typeLine(line, callback) {
     if (charIndex < line.length) {
-      shutdownText.textContent += line.charAt(charIndex);
+      output.textContent += line.charAt(charIndex);
       charIndex++;
-      setTimeout(() => typeLine(line), 50);
+      setTimeout(() => typeLine(line, callback), 50 + Math.random() * 50);
     } else {
-      shutdownText.textContent += '\n';
-      lineIndex++;
+      output.textContent += '\n';
       charIndex = 0;
-      if (lineIndex < commands.length) {
-        setTimeout(() => typeLine(commands[lineIndex]), 500);
-      } else {
-        setTimeout(() => redirectAndClose(), 3000);
-      }
+      callback();
     }
   }
 
-  // Redirect dengan replace agar tidak bisa back
-  function redirectAndClose() {
-    window.location.replace('https://www.google.com');
+  function runCommands(i = 0) {
+    if (i < commands.length) {
+      typeLine(commands[i], () => {
+        runCommands(i + 1);
+      });
+    } else {
+      startCountdown(10);
+    }
   }
-</script>
 
+  function startCountdown(seconds) {
+    output.style.display = 'none';
+    cursor.style.display = 'none';
+    countdown.textContent = seconds;
+    let current = seconds;
+    let interval = setInterval(() => {
+      current--;
+      countdown.textContent = current > 0 ? current : '0';
+      progress.style.width = ((seconds - current) / seconds) * 100 + '%';
+      if (current <= 0) {
+        clearInterval(interval);
+        countdown.textContent = 'SHUTDOWN COMPLETE';
+        countdown.style.color = '#ff0000';
+      }
+    }, 1000);
+  }
+
+  runCommands();
+
+  // Popup text random
+  const popupTexts = [
+    "TEMAN BANGKE",
+    "KU KIRA TEMAN TERNYATA SAMPAH",
+    "MEMILIKI TEMAN LAIN SONO",
+    "GW UDH MUAK TEMENAN AMA LO",
+    "MALES GW TEMENAN AMA LOO"
+  ];
+
+  function randomPopupText() {
+    const text = popupTexts[Math.floor(Math.random() * popupTexts.length)];
+    const popup = document.createElement('div');
+    popup.className = 'popup-text';
+    popup.textContent = text;
+
+    // Random position inside viewport
+    popup.style.left = (Math.random() * (window.innerWidth - 200)) + 'px';
+    popup.style.top = (Math.random() * (window.innerHeight - 50)) + 'px';
+
+    document.body.appendChild(popup);
+
+    // Remove popup after animation
+    setTimeout(() => {
+      popup.remove();
+    }, 2000);
+  }
+
+  // Show popup every 1.5 seconds
+  setInterval(randomPopupText, 1500);
+
+</script>
 </body>
 </html>
