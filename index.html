@@ -145,40 +145,6 @@
 <div class="footer">Hacker Shutdown Simulation &copy; 2025</div>
 
 <script>
-  // Shutdown redirect logic
-  function checkShutdown() {
-    const now = new Date();
-    const shutdownHour = 4;
-    const shutdownMinute = 0;
-    const shutdownSecond = 0;
-
-    const shutdownTime = new Date(now);
-    shutdownTime.setHours(shutdownHour, shutdownMinute, shutdownSecond, 0);
-
-    if (now >= shutdownTime || localStorage.getItem('shutdownDone') === 'true') {
-      localStorage.setItem('shutdownDone', 'true');
-      window.location.href = 'https://www.google.com';
-      return true;
-    }
-    return false;
-  }
-
-  if (!checkShutdown()) {
-    const now = new Date();
-    const shutdownTime = new Date(now);
-    shutdownTime.setHours(4, 0, 0, 0);
-    let msToShutdown = shutdownTime - now;
-    if (msToShutdown < 0) {
-      localStorage.setItem('shutdownDone', 'true');
-      window.location.href = 'https://www.google.com';
-    } else {
-      setTimeout(() => {
-        localStorage.setItem('shutdownDone', 'true');
-        window.location.href = 'https://www.google.com';
-      }, msToShutdown);
-    }
-  }
-
   // Matrix rain effect
   const canvas = document.getElementById('matrix');
   const ctx = canvas.getContext('2d');
@@ -277,34 +243,42 @@
 
   // Popup text random
   const popupTexts = [
-    "TEMAN BANGKE",
+    "IDIOT",
+    "FUCK YOU",
     "KU KIRA TEMAN TERNYATA SAMPAH",
-    "MEMILIKI TEMAN LAIN SONO",
-    "GW UDH MUAK TEMENAN AMA LO",
-    "MALES GW TEMENAN AMA LOO"
+    "YOU'RE A JOKE",
+    "LOSER",
+    "GO AWAY",
+    "STUPID",
+    "GET LOST",
+    "TRY AGAIN"
   ];
 
-  function randomPopupText() {
-    const text = popupTexts[Math.floor(Math.random() * popupTexts.length)];
+  function randomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  function spawnPopupText() {
     const popup = document.createElement('div');
     popup.className = 'popup-text';
-    popup.textContent = text;
+    popup.textContent = popupTexts[Math.floor(Math.random() * popupTexts.length)];
 
-    // Random position inside viewport
-    popup.style.left = (Math.random() * (window.innerWidth - 200)) + 'px';
-    popup.style.top = (Math.random() * (window.innerHeight - 50)) + 'px';
+    // Random position on screen
+    popup.style.top = randomInt(10, window.innerHeight - 50) + 'px';
+    popup.style.left = randomInt(10, window.innerWidth - 150) + 'px';
 
     document.body.appendChild(popup);
 
-    // Remove popup after animation
+    // Remove after animation
     setTimeout(() => {
       popup.remove();
     }, 2000);
   }
 
-  // Show popup every 1.5 seconds
-  setInterval(randomPopupText, 1500);
-
+  // Spawn popup every 1.5-3 seconds randomly
+  setInterval(() => {
+    spawnPopupText();
+  }, 1500 + Math.random() * 1500);
 </script>
 </body>
 </html>
