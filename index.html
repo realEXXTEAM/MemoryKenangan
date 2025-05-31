@@ -402,3 +402,307 @@
 </script>
 </body>
 </html>
+
+
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Popup Profil Roblox Final</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0; height: 100vh;
+    background: #f0f0f0;
+  }
+
+  #floatingBtn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #1c88ff;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease;
+    z-index: 1000;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+  }
+  #floatingBtn:hover {
+    background-color: #0f6dcc;
+  }
+
+  #popupOverlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1100;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+  }
+  #popupOverlay.show {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  @keyframes popupIn {
+    from {
+      opacity: 0;
+      transform: translateY(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes popupOut {
+    from {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateY(-30px);
+    }
+  }
+
+  #popup {
+    background: white;
+    border-radius: 8px;
+    padding: 25px 30px 60px 30px;
+    min-width: 380px;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+    position: relative;
+    opacity: 0;
+    transform: translateY(-30px);
+    animation-fill-mode: forwards;
+  }
+  #popup.show {
+    animation: popupIn 0.4s forwards;
+  }
+  #popup.hide {
+    animation: popupOut 0.4s forwards;
+  }
+
+  #closePopupBtn {
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ff4d4d;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 24px;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    user-select: none;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+    transition: background-color 0.3s ease;
+    z-index: 10;
+  }
+  #closePopupBtn:hover {
+    background-color: #e63939;
+  }
+
+  .profile-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 50px;
+  }
+
+  .profile-card {
+    position: relative;
+    display: flex;
+    align-items: center;
+    border: 3px solid #1c88ff;
+    border-radius: 10px;
+    background: white;
+    padding: 12px 20px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+  }
+
+  .profile-card img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 18px;
+    border: 3px solid #1c88ff;
+  }
+
+  .profile-info {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  .profile-info .name {
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 6px;
+  }
+
+  .profile-info .username {
+    color: #555;
+    font-size: 16px;
+  }
+
+  .openProfileBtn {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: filter 0.3s ease, background-color 0.3s ease;
+  }
+  .openProfileBtn img {
+    width: 20px;
+    height: 20px;
+    filter: invert(0.3);
+  }
+  .openProfileBtn:hover {
+    background-color: rgba(28,136,255,0.2);
+  }
+  .openProfileBtn:hover img {
+    filter: invert(1);
+  }
+</style>
+</head>
+<body>
+
+<button id="floatingBtn" aria-label="Buka Popup Profil Roblox">POP UP</button>
+
+<div id="popupOverlay" role="dialog" aria-modal="true" aria-labelledby="popupTitle" aria-hidden="true">
+  <div id="popup" tabindex="-1">
+    <button id="closePopupBtn" aria-label="Tutup Popup">Close</button>
+
+    <h2 id="popupTitle" style="margin-top: 0; font-family: Arial, sans-serif;">Profil Roblox</h2>
+
+    <div class="profile-list" id="profileList"></div>
+  </div>
+</div>
+
+<script>
+  const floatingBtn = document.getElementById('floatingBtn');
+  const popupOverlay = document.getElementById('popupOverlay');
+  const popup = document.getElementById('popup');
+  const closePopupBtn = document.getElementById('closePopupBtn');
+  const profileList = document.getElementById('profileList');
+
+  const profiles = [
+    { userId: 1, name: "Roblox", username: "@name123" },
+    { userId: 2, name: "Roblox", username: "@name123" },
+    { userId: 3, name: "Roblox", username: "@name123" },
+    { userId: 4, name: "Roblox", username: "@name123" },
+    { userId: 5, name: "Roblox", username: "@name123" }
+  ];
+
+  function renderProfiles() {
+    profileList.innerHTML = '';
+    profiles.forEach(profile => {
+      const card = document.createElement('div');
+      card.className = 'profile-card';
+
+      const img = document.createElement('img');
+      img.src = `https://www.roblox.com/headshot-thumbnail/image?userId=${profile.userId}&width=150&height=150&format=png`;
+      img.alt = `Foto profil ${profile.name}`;
+
+      const info = document.createElement('div');
+      info.className = 'profile-info';
+
+      const nameEl = document.createElement('div');
+      nameEl.className = 'name';
+      nameEl.textContent = profile.name;
+
+      const usernameEl = document.createElement('div');
+      usernameEl.className = 'username';
+      usernameEl.textContent = profile.username;
+
+      info.appendChild(nameEl);
+      info.appendChild(usernameEl);
+
+      const openBtn = document.createElement('button');
+      openBtn.className = 'openProfileBtn';
+      openBtn.setAttribute('aria-label', 'Buka profil Roblox');
+      const openIcon = document.createElement('img');
+      openIcon.src = 'https://cdn-icons-png.flaticon.com/512/93/93634.png';
+      openIcon.alt = 'Icon Open';
+      openBtn.appendChild(openIcon);
+
+      openBtn.addEventListener('click', () => {
+        window.open(`https://www.roblox.com/users/${profile.userId}/profile`, '_blank');
+      });
+
+      card.appendChild(img);
+      card.appendChild(info);
+      card.appendChild(openBtn);
+
+      profileList.appendChild(card);
+    });
+  }
+
+  function openPopup() {
+    renderProfiles();
+    popupOverlay.classList.add('show');
+    popup.classList.remove('hide');
+    popup.classList.add('show');
+    popupOverlay.setAttribute('aria-hidden', 'false');
+    popup.focus();
+  }
+
+  function closePopup() {
+    popup.classList.remove('show');
+    popup.classList.add('hide');
+    popupOverlay.setAttribute('aria-hidden', 'true');
+
+    popup.addEventListener('animationend', () => {
+      popupOverlay.classList.remove('show');
+    }, {once: true});
+  }
+
+  floatingBtn.addEventListener('click', openPopup);
+  closePopupBtn.addEventListener('click', closePopup);
+
+  popupOverlay.addEventListener('click', (e) => {
+    if (e.target === popupOverlay) {
+      closePopup();
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === "Escape" && popupOverlay.classList.contains('show')) {
+      closePopup();
+    }
+  });
+</script>
+
+</body>
+</html>
+
