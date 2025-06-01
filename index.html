@@ -404,27 +404,20 @@
 
 <!BACKGROUND>
 <style>
-  body, html {
-    margin:0; padding:0; height:100%;
-    overflow:hidden;
-  }
   #bg-video {
     position: fixed;
-    right: 0;
-    bottom: 0;
-    min-width: 100%;
-    min-height: 100%;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
     object-fit: cover;
     z-index: -1;
-    user-select: none; /* gak bisa select */
-    pointer-events: none; /* gak bisa klik langsung video */
+    user-select: none;
+    pointer-events: none; /* biar ga bisa klik video */
   }
-  /* overlay transparan full layar di atas video */
   #video-overlay {
     position: fixed;
-    top:0; left:0;
-    width: 100%; height: 100%;
-    z-index: 1;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    z-index: 0;
     background: transparent;
   }
 </style>
@@ -436,14 +429,13 @@
 <div id="video-overlay"></div>
 
 <script>
-  // Disable klik kanan di seluruh halaman
-  document.addEventListener('contextmenu', function(e) {
-    e.preventDefault();
-  }, false);
+  // Disable klik kanan
+  document.addEventListener('contextmenu', e => e.preventDefault());
 
   // Disable drag video
-  document.getElementById('bg-video').ondragstart = function() { return false; };
+  document.getElementById('bg-video').ondragstart = () => false;
 </script>
+
 
 
 <!ANTI DESKTOP>
