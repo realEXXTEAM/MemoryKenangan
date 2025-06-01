@@ -413,3 +413,198 @@
   z-index: -1;">
   <source src="https://v16m-default.tiktokcdn.com/25a617f8309e68a3ed4bfa9fadcd3841/683c0334/video/tos/alisg/tos-alisg-pve-0037/og6BdhxzwM4AtWmftryKAJAOIrCw4AUpX5GM3o/?a=0&bti=OUBzOTg7QGo6OjZAL3AjLTAzYCMxNDNg&ch=0&cr=0&dr=0&er=0&lr=all&net=0&cd=0%7C0%7C0%7C0&br=1010&bt=505&cs=0&ds=6&ft=EeF4ntZWD03Q12Nv5EawWIxRSfYFpq_45SY&mime_type=video_mp4&qs=0&rc=ZTo7ODRlaTk0PGdkPGQ3M0BpamZwdmg6ZnZoajMzODgzNEBgYTA2Ml4tNWIxNDU2YTNhYSNsYDJpcjRvai5gLS1kLy1zcw%3D%3D&vvpl=1&l=2025060109371308630ED3213346322313&btag=e000b0000" type="video/mp4">
 </video>
+
+<!ANTI DESKTOP>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Website Tidak Support Dektop</title>
+<style>
+  #overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: black;
+    color: white;
+    font-size: 2rem;
+    text-align: center;
+    padding-top: 40vh;
+    z-index: 9999;
+  }
+</style>
+</head>
+<body>
+
+<div id="overlay">Anda harus menggunakan HP atau menonaktifkan desktop</div>
+
+<script>
+function isMobile() {
+  // Deteksi user agent sederhana untuk mobile
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
+
+window.onload = function() {
+  if (!isMobile()) {
+    // Jika bukan mobile, tampilkan overlay
+    document.getElementById('overlay').style.display = 'block';
+    // Optional: cegah scroll atau interaksi lainnya
+    document.body.style.overflow = 'hidden';
+  }
+};
+</script>
+
+</body>
+</html>
+
+
+<!SETTING MUSIC>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Backsound Settings</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Tombol Musik Bulat Biru di Kiri Bawah */
+    #musicBtn {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background: #2196F3;
+      color: white;
+      border: none;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 9999;
+      font-size: 24px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s ease;
+    }
+
+    #musicBtn:hover {
+      background: #1976D2;
+    }
+
+    /* Popup UI */
+    #musicSettings {
+      position: fixed;
+      bottom: 90px;
+      left: 20px;
+      background: #222;
+      color: white;
+      border-radius: 12px;
+      padding: 20px;
+      display: none;
+      z-index: 9998;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      width: 200px;
+    }
+
+    #musicSettings.show {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    #musicSettings h3 {
+      margin-top: 0;
+    }
+
+    .switch {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 15px;
+    }
+
+    .slider {
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+<audio id="backsound" loop>
+  <source src="https://sf16-ies-music-va.tiktokcdn.com/obj/musically-maliva-obj/7480814993731767095.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+
+<!-- Tombol Musik -->
+<button id="musicBtn"><span class="material-icons">music_note</span></button>
+
+<!-- Popup Settings -->
+<div id="musicSettings">
+  <h3>Music Settings</h3>
+  <div class="switch">
+    <label for="toggleMusic">Music</label>
+    <input type="checkbox" id="toggleMusic" checked>
+  </div>
+  <label for="volumeRange">Volume</label>
+  <input type="range" id="volumeRange" class="slider" min="0" max="100" value="50">
+</div>
+
+<script>
+  const musicBtn = document.getElementById('musicBtn');
+  const musicSettings = document.getElementById('musicSettings');
+  const music = document.getElementById('backsound');
+  const toggleMusic = document.getElementById('toggleMusic');
+  const volumeRange = document.getElementById('volumeRange');
+
+  let isPlaying = false;
+
+  // Munculkan popup
+  musicBtn.addEventListener('click', () => {
+    if (musicSettings.classList.contains('show')) {
+      musicSettings.classList.remove('show');
+      setTimeout(() => musicSettings.style.display = 'none', 300);
+    } else {
+      musicSettings.style.display = 'block';
+      setTimeout(() => musicSettings.classList.add('show'), 10);
+    }
+  });
+
+  // Toggle Musik ON/OFF
+  toggleMusic.addEventListener('change', () => {
+    if (toggleMusic.checked) {
+      music.play();
+      isPlaying = true;
+    } else {
+      music.pause();
+      isPlaying = false;
+    }
+  });
+
+  // Volume Slider
+  volumeRange.addEventListener('input', () => {
+    music.volume = volumeRange.value / 100;
+  });
+
+
+
+  // Auto pause saat keluar dari tab
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden && isPlaying) {
+      music.pause();
+    } else if (!document.hidden && toggleMusic.checked) {
+      music.play();
+    }
+  });
+</script>
+
+</body>
+</html>
